@@ -16,16 +16,20 @@ const App = () => {
     document.getElementById(`field-${items().length - 1}`)?.focus()
   }
 
-  const randomize = () => {
-    setIsLoading(true)
-    const { length } = items().filter((item) => item)
-    const index = Math.floor(Math.random() * length)
-    setRandomizedItem(items()[index])
+  const startLoading = () => {
     const id = setInterval(() => setLoading(loading() + 5), TIMEOUT / 20)
     setTimeout(() => {
       setIsLoading(false)
       clearInterval(id)
     }, TIMEOUT)
+  }
+
+  const randomize = () => {
+    setIsLoading(true)
+    const { length } = items().filter((item) => item)
+    const index = Math.floor(Math.random() * length)
+    setRandomizedItem(items()[index])
+    startLoading()
   }
 
   const handleChange = (index: number, value: string) => {
