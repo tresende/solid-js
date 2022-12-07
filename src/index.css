@@ -8,3 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   padding: 2rem;
 }
+
+* {
+  outline: 0;
+}
