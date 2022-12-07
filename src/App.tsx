@@ -11,6 +11,7 @@ const App = () => {
 
   const addItem = () => {
     setItems(items().concat(''))
+    document.getElementById(`field-${items().length - 1}`)?.focus()
   }
 
   const randomize = () => {
