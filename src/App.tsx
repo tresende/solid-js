@@ -2,6 +2,8 @@ import { createSignal, For, Show } from 'solid-js'
 
 import styles from './App.module.css'
 
+const TIMEOUT = 2000
+
 const App = () => {
   const [isLoading, setIsLoading] = createSignal<boolean>()
   console.log('Render')
@@ -16,13 +18,14 @@ const App = () => {
 
   const randomize = () => {
     setIsLoading(true)
-    const index = Math.floor(Math.random() * items().length)
+    const { length } = items().filter((item) => item)
+    const index = Math.floor(Math.random() * length)
     setRandomizedItem(items()[index])
-    const id = setInterval(() => setLoading(loading() + 5), 100)
+    const id = setInterval(() => setLoading(loading() + 5), TIMEOUT / 20)
     setTimeout(() => {
       setIsLoading(false)
       clearInterval(id)
-    }, 2000)
+    }, TIMEOUT)
   }
 
   const handleChange = (index: number, value: string) => {
