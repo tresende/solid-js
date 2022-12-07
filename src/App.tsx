@@ -4,6 +4,7 @@ import styles from './App.module.css'
 
 const App = () => {
   const [isLoading, setIsLoading] = createSignal<boolean>()
+  console.log('Render')
   const [randomizedItem, setRandomizedItem] = createSignal('')
   const [items, setItems] = createSignal<string[]>([])
   const [loading, setLoading] = createSignal(0)
@@ -29,6 +30,13 @@ const App = () => {
     setItems(data)
   }
 
+  const onSubmit = (event: KeyboardEvent, index: number, value: string) => {
+    if (event.key !== 'Enter') return
+    event.preventDefault()
+    handleChange(index, value)
+    addItem()
+  }
+
   return (
     <div class={styles.container}>
       <section class="topic">
@@ -39,13 +47,13 @@ const App = () => {
       </section>
 
       <Show when={isLoading() === undefined}>
-        <button onClick={addItem}>Add Item</button>
         <section class="topic">
           <For each={items()}>
             {(_, index) => (
               <div class={styles.field}>
                 <label for={`field-${index()}`}>{`Item ${index() + 1}`}</label>
                 <input
+                  onKeyDown={(e) => onSubmit(e, index(), e.currentTarget.value)}
                   value={items()[index()]}
                   onChange={(e) => handleChange(index(), e.currentTarget.value)}
                   type="text"
@@ -56,13 +64,15 @@ const App = () => {
             )}
           </For>
         </section>
-      </Show>
-
-      <Show when={isLoading() === undefined && items().length > 1}>
         <div class={styles.field}>
-          <button type="button" onClick={randomize} class="nes-btn is-primary">
-            Randomize it!
+          <button class="nes-btn is-primary" onClick={addItem}>
+            Add Item
           </button>
+          <Show when={isLoading() === undefined && items().length > 1}>
+            <button type="button" onClick={randomize} class="nes-btn is-success">
+              Randomize it!
+            </button>
+          </Show>
         </div>
       </Show>
 

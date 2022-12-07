@@ -18,3 +18,7 @@
 .field {
   margin-top: 1rem;
 }
+
+.field button {
+  margin-right: 2rem;
+}
