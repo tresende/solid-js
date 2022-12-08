@@ -45,6 +45,11 @@ const App = () => {
     addItem()
   }
 
+  const handleClick = () => {
+    setIsLoading()
+    setItems([])
+  }
+
   return (
     <div class={styles.container}>
       <section class="topic">
@@ -98,6 +103,9 @@ const App = () => {
             <i class="nes-icon trophy is-medium"></i>Result is: <b>{randomizedItem}</b>
           </p>
         </div>
+        <button type="button" onClick={handleClick} class="nes-btn is-primary">
+          Randomize new stuff!
+        </button>
       </Show>
     </div>
   )
